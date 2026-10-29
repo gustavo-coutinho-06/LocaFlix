@@ -1,6 +1,8 @@
 package locaflix.corporation.locaflix.infrastructure.web.error;
 
+import locaflix.corporation.locaflix.domain.exception.ConflictException;
 import locaflix.corporation.locaflix.domain.exception.NotFoundException;
+import locaflix.corporation.locaflix.domain.exception.UnauthorizedException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +22,18 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(new ApiError(exception.getMessage()));
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ApiError> handleUnauthorized(UnauthorizedException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiError(exception.getMessage()));
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ApiError> handleConflict(ConflictException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiError(exception.getMessage()));
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ApiError> handleConflict(DataIntegrityViolationException exception) {
+    public ResponseEntity<ApiError> handleDataIntegrity(DataIntegrityViolationException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(new ApiError("The request conflicts with existing data"));
     }

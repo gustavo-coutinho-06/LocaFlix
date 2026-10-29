@@ -18,4 +18,7 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, UUID> {
     @EntityGraph(attributePaths = "plan")
     List<UserEntity> findAll();
 
+    @EntityGraph(attributePaths = "plan")
+    Optional<UserEntity> findByEmail(String email);
+
 }

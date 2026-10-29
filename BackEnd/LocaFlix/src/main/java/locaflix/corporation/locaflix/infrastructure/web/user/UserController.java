@@ -31,7 +31,7 @@ public class UserController {
         User user = userService.create(
                 request.name(),
                 request.age(),
-                request.passwordHash(),
+                request.password(),
                 request.email(),
                 request.planId()
         );
@@ -56,7 +56,7 @@ public class UserController {
                 id,
                 request.name(),
                 request.age(),
-                request.passwordHash(),
+                request.password(),
                 request.email(),
                 request.planId()
         );

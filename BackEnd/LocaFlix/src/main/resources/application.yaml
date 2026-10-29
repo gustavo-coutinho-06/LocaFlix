@@ -11,3 +11,8 @@ spring:
     open-in-view: false
   flyway:
     enabled: true
+
+locaflix:
+  jwt:
+    secret: locaflix-local-jwt-secret-key-32b
+    expiration: 24h
