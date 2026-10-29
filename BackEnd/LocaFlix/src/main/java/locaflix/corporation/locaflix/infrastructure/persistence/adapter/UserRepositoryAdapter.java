@@ -1,5 +1,6 @@
 package locaflix.corporation.locaflix.infrastructure.persistence.adapter;
 
+import locaflix.corporation.locaflix.domain.exception.NotFoundException;
 import locaflix.corporation.locaflix.domain.model.User;
 import locaflix.corporation.locaflix.domain.repository.UserRepository;
 import locaflix.corporation.locaflix.infrastructure.persistence.entity.PlanEntity;
@@ -44,6 +45,15 @@ public class UserRepositoryAdapter implements UserRepository {
         return userJpaRepository.findAll().stream()
                 .map(UserMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(UUID id) {
+        if (!userJpaRepository.existsById(id)) {
+            throw new NotFoundException("User not found");
+        }
+        userJpaRepository.deleteById(id);
     }
 
 }

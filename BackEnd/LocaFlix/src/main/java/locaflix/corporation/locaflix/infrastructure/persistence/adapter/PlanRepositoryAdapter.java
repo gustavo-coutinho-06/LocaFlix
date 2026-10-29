@@ -1,5 +1,6 @@
 package locaflix.corporation.locaflix.infrastructure.persistence.adapter;
 
+import locaflix.corporation.locaflix.domain.exception.NotFoundException;
 import locaflix.corporation.locaflix.domain.model.Plan;
 import locaflix.corporation.locaflix.domain.repository.PlanRepository;
 import locaflix.corporation.locaflix.infrastructure.persistence.entity.PlanEntity;
@@ -39,6 +40,15 @@ public class PlanRepositoryAdapter implements PlanRepository {
         return planJpaRepository.findAll().stream()
                 .map(PlanMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(UUID id) {
+        if (!planJpaRepository.existsById(id)) {
+            throw new NotFoundException("Plan not found");
+        }
+        planJpaRepository.deleteById(id);
     }
 
 }

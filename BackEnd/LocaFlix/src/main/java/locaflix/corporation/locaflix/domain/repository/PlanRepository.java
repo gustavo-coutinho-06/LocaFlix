@@ -14,4 +14,6 @@ public interface PlanRepository {
 
     List<Plan> findAll();
 
+    void deleteById(UUID id);
+
 }
