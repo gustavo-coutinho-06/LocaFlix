@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: LocaFlix
+  datasource:
+    url: jdbc:postgresql://localhost:5432/locaflix
+    username: locaflix
+    password: locaflix
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
